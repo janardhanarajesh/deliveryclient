@@ -207,16 +207,20 @@ console.log(err);
 app.post("/postorder",(req,res,next)=>{
   const{user,itemname,itemdisc,image,qty,cost,place,phn,name,mail}=req.body;
   let mal="kjanrdhanarajesh@gmail.com"
- let dat=new Date();
-  let hour=dat.getHours()
-  let minute=dat.getMinutes()
-  let day=dat.getDate()
-  let mon=dat.getMonth()
-  let yer=dat.getFullYear()
-  let realhours=hour+5;
-  let realminutes=minute+30;
-  let realdate=day;
-let date=realdate+"-"+mon+"-"+yer+" "+realhours+":"+realminutes;
+const options = {
+  timeZone: 'Asia/Kolkata',
+  year: 'numeric', month: 'numeric', day: 'numeric',
+  hour: 'numeric', minute: 'numeric', second: 'numeric',
+};
+
+const formatter = new Intl.DateTimeFormat([], options);
+const formattedDate = formatter.format(new Date());
+
+console.log(formattedDate);
+
+
+let date=formattedDate;
+
   try{
     let new_order=new Order({
       user,
